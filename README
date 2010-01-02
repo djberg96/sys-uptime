@@ -1,0 +1,14 @@
+= Description
+   A Ruby interface for getting system uptime information.
+
+= Prerequisites
+   Ruby 1.8.0 or later.
+   Ruby 1.8.2 or later is recommended on MS Windows.
+   A C compiler, except for MS Windows.
+
+= Installation
+   rake test (optional)
+   rake install (non-gem) or rake install_gem (gem).
+
+== Notes
+   For additional documentation see doc/uptime.txt.
