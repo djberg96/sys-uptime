@@ -5,7 +5,8 @@
   ffi 0.5.0 or later.
 
 = Installation
-  gem install sys-uptime
+  gem install sys-uptime                    # Unix platforms
+  gem install sys-uptime --platform mswin32 # MS Windows
 
 = Synopsis
   require 'sys/uptime'
