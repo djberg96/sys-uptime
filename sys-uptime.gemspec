@@ -16,6 +16,8 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST']
   spec.rubyforge_project = 'sysutils'
 
+  spec.add_dependency('ffi', '>= 0.5.0')
+
   spec.description = <<-EOF
     The sys-uptime library is a simple interface for gathering uptime
     information. You can retrieve data in seconds, minutes, days, hours,
