@@ -82,7 +82,9 @@ module Sys
     #    Sys::Uptime.boot_time # => Mon Jul 13 06:08:25 -0600 2009
     #
     def self.boot_time
-      if defined? :sysctl
+      if Config::CONFIG['host_os'] =~ /linux/i
+        Time.now - self.seconds
+      elsif defined? :sysctl
         tv = Timeval.new
         mib  = FFI::MemoryPointer.new(:int, 2).write_array_of_int([CTL_KERN, KERN_BOOTTIME])
         size = FFI::MemoryPointer.new(:long, 1).write_int(tv.size)
@@ -92,8 +94,6 @@ module Sys
         end
 
         Time.at(tv[:tv_sec], tv[:tv_usec])
-      elsif Config::CONFIG['host_os'] =~ /linux/i
-        Time.now - self.seconds
       else
         begin
           setutxent()
@@ -117,7 +117,13 @@ module Sys
     #    Sys::Uptime.seconds => 118800
     #
     def self.seconds
-      if defined? :sysctl
+      if Config::CONFIG['host_os'] =~ /linux/i
+        begin
+          IO.read(UPTIME_FILE).split.first.to_i
+        rescue Exception => err
+          raise Error, err
+        end
+      elsif defined? :sysctl
         tv   = Timeval.new
         mib  = FFI::MemoryPointer.new(:int, 2).write_array_of_int([CTL_KERN, KERN_BOOTTIME])
         size = FFI::MemoryPointer.new(:long, 1).write_int(tv.size)
@@ -127,12 +133,6 @@ module Sys
         end
 
         time(nil) - tv[:tv_sec]
-      elsif Config::CONFIG['host_os'] =~ /linux/i
-        begin
-          IO.read(UPTIME_FILE).split.first.to_i
-        rescue Exception => err
-          raise Error, err
-        end
       else
         tms = Tms.new
         times(tms) / TICKS
