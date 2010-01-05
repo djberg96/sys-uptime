@@ -13,6 +13,7 @@ namespace 'gem' do
       spec.require_paths = ['lib', 'lib/windows']
     else
       spec.require_paths = ['lib', 'lib/unix']
+      spec.add_dependency('ffi', '>= 0.5.0')
     end
 
     Gem::Builder.new(spec).build
