@@ -10,7 +10,7 @@ include Sys
 
 class TC_Uptime < Test::Unit::TestCase
    def test_version
-      assert_equal('0.6.0', Uptime::VERSION)
+      assert_equal('0.5.3', Uptime::VERSION)
    end
 
    def test_seconds

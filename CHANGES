@@ -1,9 +1,3 @@
-== 0.6.0 - ???
-* Switched Unix code to use FFI.
-* Removed all of the C related tasks from the Rakefile and added the gem:build
-  and gem:install tasks.
-* Internal directory layout changes, with appropriate changes to the gem spec.
-
 == 0.5.3 - 7-May-2009
 * Altered the Uptime.seconds implementation on Linux so that it works with
   both Ruby 1.8.x and 1.9.x. Thanks go to Alexey Chebotar for the spot.
