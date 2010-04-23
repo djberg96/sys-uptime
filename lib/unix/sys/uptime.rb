@@ -25,11 +25,16 @@ module Sys
       attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
     rescue FFI::NotFoundError
       # Do nothing, not supported.
+    else
+      attach_function :setutxent, [], :void
+      attach_function :getutxent, [], :pointer
+      attach_function :endutxent, [], :void
     end
 
     CTL_KERN = 1       # Kernel
     KERN_BOOTTIME = 21 # Time kernel was booted
     TICKS = 100        # Ticks per second (FIXME: use sysconf)
+    BOOT_TIME = 2      # Boot time
 
     class Tms < FFI::Struct
       layout(
@@ -44,6 +49,27 @@ module Sys
       layout(
         :tv_sec,  :long,
         :tv_usec, :long
+      )
+    end
+
+    class ExitStatus < FFI::Struct
+      layout(
+        :e_termination, :short,
+        :e_exit, :short
+      )
+    end
+ 
+    class Utmpx < FFI::Struct
+      layout(
+        :ut_type, :short,
+        :ut_pid, :pid_t,
+        :ut_line, [:char, 32],
+        :ut_id, :char,
+        :ut_user, [:char, 32],
+        :ut_host, [:char, 256],
+        :ut_exit, ExitStatus,
+        :ut_session, :long,
+        :ut_tv, Timeval
       )
     end
 
@@ -69,7 +95,18 @@ module Sys
       elsif Config::CONFIG['host_os'] =~ /linux/i
         Time.now - self.seconds
       else
-        # TODO: setutxent/getutxent/endutxent
+        begin
+          setutxent()
+          while ent = Utmpx.new(getutxent())
+            if ent[:ut_type] == BOOT_TIME
+              time = Time.at(ent[:ut_tv][:tv_sec], ent[:ut_tv][:tv_usec])
+              break
+            end
+          end
+        ensure
+          endutxent()
+        end
+        time
       end
     end
 
