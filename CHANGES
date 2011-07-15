@@ -1,6 +1,7 @@
 == 0.5.4 - 26-Jul-2011
 * Refactored and updated Rakefile and gemspec.
 * Some internal file reorganization and renaming.
+* License changed to Artistic 2.0.
 
 == 0.5.3 - 7-May-2009
 * Altered the Uptime.seconds implementation on Linux so that it works with

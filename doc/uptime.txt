@@ -1,99 +1,98 @@
-== Synopsis
-   require 'sys/uptime'
-   include Sys
-
-   p Uptime.days
-   p Uptime.hours
-   p Uptime.minutes
-   p Uptime.seconds
-   p Uptime.dhms.join(', ')
-   p Uptime.uptime
-   p Uptime.boot_time
-
 == Description
-   This package provides uptime and boot time information, similar to the
-   'uptime' Unix command.
+  The sys-uptime library provides uptime and boot time information, similar
+  to the 'uptime' Unix command.
+
+== Synopsis
+  require 'sys/uptime'
+  include Sys
+
+  p Uptime.days
+  p Uptime.hours
+  p Uptime.minutes
+  p Uptime.seconds
+  p Uptime.dhms.join(', ')
+  p Uptime.uptime
+  p Uptime.boot_time
     
 == Constants
 VERSION
-   Returns the current version number of this package (as a string).
+  Returns the current version number of this library.
     
 == Class Methods
 Uptime.boot_time
-   Returns the boot time as a Time object.
+  Returns the boot time as a Time object.
     
 Uptime.days
-   Returns the total number of days the system has been up.
+  Returns the total number of days the system has been up.
     
 Uptime.hours
-   Returns the total number of hours the system has been up.
+  Returns the total number of hours the system has been up.
     
 Uptime.minutes
-   Returns the total number of minutes the system has been up.
+  Returns the total number of minutes the system has been up.
     
 Uptime.seconds
-   Returns the total number of seconds the system has been up.
+  Returns the total number of seconds the system has been up.
     
 Uptime.dhms
-   Calculates and returns the number of days, hours, minutes and
-   seconds the system has been running as a four-element Array.
+  Calculates and returns the number of days, hours, minutes and
+  seconds the system has been running as a four-element Array.
     
 Uptime.uptime
-   Calculates and returns the number of days, hours, minutes and
-   seconds the system has been running as a colon-separated string.
+  Calculates and returns the number of days, hours, minutes and
+  seconds the system has been running as a colon-separated string.
     
 == Exceptions
 Uptime::Error
-   Raised if something goes wrong. On Unix, this would likely mean a
-   failure of the times() function. That would be highly unusual.
+  Raised if something goes wrong. On Unix, this would likely mean a
+  failure of the times() function. That would be highly unusual.
    
-   On Windows, it probably means you failed to connect to WMI properly. The
-   mostly likely reason would be that the WMI service wasn't running.
+  On Windows, it probably means you failed to connect to WMI properly. The
+  mostly likely reason would be that the WMI service wasn't running.
     
 == Notes
-   On MS Windows each of the class methods optionally takes a host name as
-   a single argument. The default is localhost (or whatever the result of
-   Socket.gethostname returns).
+  On MS Windows each of the class methods optionally takes a host name as
+  a single argument. The default is localhost (or whatever the result of
+  Socket.gethostname returns).
 
-   The current time, users and load average are NOT included in this
-   module, even though you may be used to seeing them with the command
-   line version of 'uptime'.  This is because these things have
-   _absolutely nothing_ to do with uptime (at least, not as I
-   logically think of uptime).
+  The current time, users and load average are NOT included in this
+  module, even though you may be used to seeing them with the command
+  line version of 'uptime'.  This is because these things have
+  absolutely nothing to do with uptime. At least, not as I logically
+  think of uptime.
     
-   This package was tested successfully on a Solaris system with over 1600
-   days of uptime.
+  This library was tested successfully on a Solaris system with over 1600
+  days of uptime.
     
 == Known Bugs
-   None that I am aware of.  Please log any bugs you find on the project
-   website at http://www.rubyforge.org/projects/sysutils.
+  None that I am aware of.  Please log any bugs you find on the project
+  website at http://www.rubyforge.org/projects/sysutils.
 
 == Questions
-   "Doesn't Struct::Tms do this?" - No.
+  "Doesn't Struct::Tms do this?" - No.
     
 == License
-   Ruby's
+  Artistic 2.0
     
 == Copyright
-   Copyright 2002-2009, Daniel J. Berger
+  Copyright 2002-2011, Daniel J. Berger
 
-   All Rights Reserved. This module is free software. It may be used,
-   redistributed and/or modified under the same terms as Ruby itself.
+  All Rights Reserved. This module is free software. It may be used,
+  redistributed and/or modified under the same terms as Ruby itself.
     
 == Warranty
-   This library is provided "as is" and without any express or
-   implied warranties, including, without limitation, the implied
-   warranties of merchantability and fitness for a particular purpose.
+  This library is provided "as is" and without any express or
+  implied warranties, including, without limitation, the implied
+  warranties of merchantability and fitness for a particular purpose.
 
 == Acknowledgements
-   Mike Hall for help with the BSD side of things.
-   Ola Eriksson, whose source code I shamelessly plagiarized to get a better
-   implementation for systems that have the utmpx.h header file.
+  Mike Hall for help with the BSD side of things.
+  Ola Eriksson, whose source code I shamelessly plagiarized to get a better
+  implementation for systems that have the utmpx.h header file.
 
-== Author
-   Daniel J. Berger
-   djberg96 at nospam at gmail dot com
-   imperator on IRC (Freenode)
+== Authors
+  Daniel J. Berger
+  Mike Hall
     
 == See Also
-   uptime
+  uptime(1)

@@ -2,12 +2,11 @@
 * MANIFEST
 * Rakefile
 * README
-* install.rb
 * sys-uptime.gemspec
 * doc/uptime.txt
-* examples/test.rb
+* examples/sys_uptime_example.rb
 * ext/extconf.rb
 * ext/sys/uptime.c
-* lib/sys/linux.rb
-* lib/sys/windows.rb
+* lib/linux/sys/uptime.rb
+* lib/windows/sys/uptime.rb
 * test/test_sys_uptime.rb
