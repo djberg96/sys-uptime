@@ -64,7 +64,7 @@ task :example => [:build] do
     else
       path = 'ext'
   end
-  sh "ruby -I#{path} examples/uptime_example.rb" 
+  sh "ruby -I#{path} examples/sys_uptime_example.rb" 
 end
 
 desc "Run the test suite"

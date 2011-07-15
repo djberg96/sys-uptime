@@ -1,5 +1,5 @@
 ###########################################################
-# uptime_test.rb
+# sys_uptime_example.rb
 #
 # A generic test script for general futzing. You can run
 # this script via the 'rake example' task.
