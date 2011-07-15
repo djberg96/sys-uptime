@@ -22,6 +22,7 @@ task :build => [:clean] do
       ruby 'extconf.rb'
       sh 'make'
     end
+    cp "uptime." + CONFIG['DLEXT'], "sys"
   end
 end
 
@@ -78,6 +79,8 @@ Rake::TestTask.new("test") do |t|
       t.libs << 'lib/windows'
     when /linux/
       t.libs << 'lib/linux'
+    else
+      t.libs << 'ext'
   end
 end
 

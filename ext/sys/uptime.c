@@ -51,7 +51,7 @@
 
 #define MAXSTRINGSIZE 32 /* reasonable limit */
 
-#define SYS_UPTIME_VERSION "0.5.3"
+#define SYS_UPTIME_VERSION "0.5.4"
 
 VALUE cUptimeError;
 
