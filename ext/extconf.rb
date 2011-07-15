@@ -9,8 +9,8 @@ require 'mkmf'
 require 'fileutils'
 
 if RUBY_PLATFORM =~ /windows|win32|cygwin|mingw|dos|linux/i
-   STDERR.puts 'Run the "install.rb" script instead on this platform'
-   exit
+  STDERR.puts "Do not compile on this platform. Run 'rake gem:install' instead."
+  exit
 end
 
 dir_config('uptime')
@@ -18,11 +18,11 @@ dir_config('uptime')
 have_header('sys/loadavg.h')
 
 if have_func('sysctl')
-   have_header('sys/param.h')
-   have_header('sys/time.h')
-   have_header('sys/types.h')
+  have_header('sys/param.h')
+  have_header('sys/time.h')
+  have_header('sys/types.h')
 else
-   have_header('utmpx.h')
+  have_header('utmpx.h')
 end
 
 create_makefile('sys/uptime', 'sys')
