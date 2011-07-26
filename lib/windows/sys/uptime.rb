@@ -5,154 +5,154 @@ require 'time'
 
 # The Sys module serves as a namespace only.
 module Sys
-   
-   # The Uptime class encapsulates various bits of information regarding your
-   # system's uptime, including boot time.
-   class Uptime
-      
-      # Error typically raised in one of the Uptime methods should fail.
-      class Error < StandardError; end
 
-      # The version of this library.
-      VERSION = '0.5.3'
+  # The Uptime class encapsulates various bits of information regarding your
+  # system's uptime, including boot time.
+  class Uptime
 
-      # Returns the boot time as a Time object.
-      #
-      # Example:
-      #
-      #    Sys::Uptime.boot_time # => Fri Dec 12 20:18:58 -0700 2008
-      #
-      def self.boot_time(host=Socket.gethostname)
-         cs = "winmgmts://#{host}/root/cimv2"
-         begin
-            wmi = WIN32OLE.connect(cs)
-         rescue WIN32OLERuntimeError => e
-            raise Error, e
-         else
-            query = "select LastBootupTime from Win32_OperatingSystem"
-            results = wmi.ExecQuery(query)
-            results.each{ |ole|
-               time_array = parse_ms_date(ole.LastBootupTime)
-               return Time.mktime(*time_array)
-            }
-         end
-      end
-      
-      # Calculates and returns the number of days, hours, minutes and
-      # seconds the +host+ has been running as a colon-separated string.
-      #
-      # The localhost is used if no +host+ is provided.
-      #
-      # Example:
-      #
-      #    Sys::Uptime.uptime # => "1:9:55:11"
-      #
-      def self.uptime(host=Socket.gethostname)
-         get_dhms(host).join(':')
-      end
-      
-      # Calculates and returns the number of days, hours, minutes and
-      # seconds the +host+ has been running as a four-element Array.
-      # The localhost is used if no +host+ is provided.
-      #
-      # Example:
-      #
-      #    Sys::Uptime.dhms # => [1, 9, 55, 11]
-      #
-      def self.dhms(host=Socket.gethostname)
-         get_dhms(host)
-      end
-      
-      # Returns the total number of days the system has been up on +host+,
-      # or the localhost if no host is provided.
-      #
-      # Example:
-      #
-      #    Sys::Uptime.days # => 1
-      #
-      def self.days(host=Socket.gethostname)
-         hours(host) / 24
-      end
-      
-      # Returns the total number of hours the system has been up on +host+,
-      # or the localhost if no host is provided.
-      #
-      # Example:
-      #
-      #    Sys::Uptime.hours # => 33
-      #
-      def self.hours(host=Socket.gethostname)
-         minutes(host) / 60
-      end
-      
-      # Returns the total number of minutes the system has been up on +host+,
-      # or the localhost if no host is provided.
-      #
-      # Example:
-      #
-      #    Sys::Uptime.minutes # => 1980
-      #
-      def self.minutes(host=Socket.gethostname)
-         seconds(host) / 60
-      end
-      
-      # Returns the total number of seconds the system has been up on +host+,
-      # or the localhost if no host is provided.
-      #
-      # Example:
-      #
-      #    Sys::Uptime.seconds # => 118800
-      #
-      def self.seconds(host=Socket.gethostname)
-         get_seconds(host)
-      end
-      
-      private
-      
-      # Converts a string in the format '20040703074625.015625-360' into a
-      # Ruby Time object.
-      #
-      def self.parse_ms_date(str)
-         return if str.nil?
-         return Time.parse(str.split('.').first)
-      end
-      
-      # Get the actual days, hours, minutes and seconds since boot using WMI.
-      #
-      def self.get_dhms(host)
-         seconds = get_seconds(host)
+    # Error typically raised in one of the Uptime methods should fail.
+    class Error < StandardError; end
 
-         days = (seconds / 86400).to_i
-         seconds -= days * 86400
-         hours = seconds / 3600
-         seconds -= hours * 3600
-         minutes = seconds / 60
-         seconds -= minutes * 60
+    # The version of the sys-uptime library.
+    VERSION = '0.5.4'
 
-         [days, hours, minutes, seconds]
+    # Returns the boot time as a Time object.
+    #
+    # Example:
+    #
+    #    Sys::Uptime.boot_time # => Fri Dec 12 20:18:58 -0700 2008
+    #
+    def self.boot_time(host=Socket.gethostname)
+      cs = "winmgmts://#{host}/root/cimv2"
+      begin
+        wmi = WIN32OLE.connect(cs)
+      rescue WIN32OLERuntimeError => e
+        raise Error, e
+      else
+        query = "select LastBootupTime from Win32_OperatingSystem"
+        results = wmi.ExecQuery(query)
+        results.each{ |ole|
+          time_array = parse_ms_date(ole.LastBootupTime)
+          return Time.mktime(*time_array)
+        }
+      end
+    end
+
+    # Calculates and returns the number of days, hours, minutes and
+    # seconds the +host+ has been running as a colon-separated string.
+    #
+    # The localhost is used if no +host+ is provided.
+    #
+    # Example:
+    #
+    #    Sys::Uptime.uptime # => "1:9:55:11"
+    #
+    def self.uptime(host=Socket.gethostname)
+      get_dhms(host).join(':')
+    end
+
+    # Calculates and returns the number of days, hours, minutes and
+    # seconds the +host+ has been running as a four-element Array.
+    # The localhost is used if no +host+ is provided.
+    #
+    # Example:
+    #
+    #    Sys::Uptime.dhms # => [1, 9, 55, 11]
+    #
+    def self.dhms(host=Socket.gethostname)
+      get_dhms(host)
+    end
+
+    # Returns the total number of days the system has been up on +host+,
+    # or the localhost if no host is provided.
+    #
+    # Example:
+    #
+    #    Sys::Uptime.days # => 1
+    #
+    def self.days(host=Socket.gethostname)
+      hours(host) / 24
+    end
+
+    # Returns the total number of hours the system has been up on +host+,
+    # or the localhost if no host is provided.
+    #
+    # Example:
+    #
+    #    Sys::Uptime.hours # => 33
+    #
+    def self.hours(host=Socket.gethostname)
+      minutes(host) / 60
+    end
+
+    # Returns the total number of minutes the system has been up on +host+,
+    # or the localhost if no host is provided.
+    #
+    # Example:
+    #
+    #    Sys::Uptime.minutes # => 1980
+    #
+    def self.minutes(host=Socket.gethostname)
+      seconds(host) / 60
+    end
+
+    # Returns the total number of seconds the system has been up on +host+,
+    # or the localhost if no host is provided.
+    #
+    # Example:
+    #
+    #    Sys::Uptime.seconds # => 118800
+    #
+    def self.seconds(host=Socket.gethostname)
+      get_seconds(host)
+    end
+
+    private
+
+    # Converts a string in the format '20040703074625.015625-360' into a
+    # Ruby Time object.
+    #
+    def self.parse_ms_date(str)
+      return if str.nil?
+      return Time.parse(str.split('.').first)
+    end
+
+    # Get the actual days, hours, minutes and seconds since boot using WMI.
+    #
+    def self.get_dhms(host)
+      seconds = get_seconds(host)
+
+      days = (seconds / 86400).to_i
+      seconds -= days * 86400
+      hours = seconds / 3600
+      seconds -= hours * 3600
+      minutes = seconds / 60
+      seconds -= minutes * 60
+
+      [days, hours, minutes, seconds]
+    end
+
+    # Returns the number of seconds since boot.
+    #
+    def self.get_seconds(host)
+      cs = "winmgmts://#{host}/root/cimv2"
+      begin
+        wmi = WIN32OLE.connect(cs)
+      rescue WIN32OLERuntimeError => e
+        raise Error, e
+      else
+        query = "select LastBootupTime from Win32_OperatingSystem"
+        results = wmi.ExecQuery(query)
+        now = Time.now
+
+        results.each{ |ole|
+          time_array = parse_ms_date(ole.LastBootupTime)
+          boot_time = Time.mktime(*time_array)
+          break
+        }
       end
 
-      # Returns the number of seconds since boot.
-      #
-      def self.get_seconds(host)
-         cs = "winmgmts://#{host}/root/cimv2"
-         begin
-            wmi = WIN32OLE.connect(cs)
-         rescue WIN32OLERuntimeError => e
-            raise Error, e
-         else
-            query = "select LastBootupTime from Win32_OperatingSystem"
-            results = wmi.ExecQuery(query)
-            now = Time.now
-            
-            results.each{ |ole|
-               time_array = parse_ms_date(ole.LastBootupTime)
-               boot_time = Time.mktime(*time_array)
-               break
-            }
-         end
-            
-         (now - boot_time).to_i
-      end
-   end
+      (now - boot_time).to_i
+    end
+  end
 end
