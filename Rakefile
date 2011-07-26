@@ -4,22 +4,16 @@ require 'rake/testtask'
 require 'rbconfig'
 include Config
 
-desc "Clean the build files for the sys-uptime source for UNIX systems"
-task :clean do
-  Dir["**/*.rbc"].each{ |f| File.delete(f) } # Rubinius
-  Dir["*.gem"].each{ |f| File.delete(f) }
-
-  rm_rf('sys') if File.exists?('sys')
-  rm_rf('lib/sys/uptime.rb') if File.exists?('lib/sys/uptime.rb')
-
-  unless Config::CONFIG['host_os'] =~ /mswin|win32|mingw|cygwin|dos|linux/i
-    Dir.chdir('ext') do
-      build_file = File.join('sys', 'uptime.' + Config::CONFIG['DLEXT'])
-      sh 'make distclean' if File.exists?(build_file)
-      rm_rf build_file if File.exists?(build_file)
-    end
-  end
-end
+CLEAN.include(
+  '**/*.gem',                # Gem files
+  '**/*.rbc',                # Rubinius
+  '**/*.o',                  # C object file
+  '**/*.log',                # Ruby extension build log
+  '**/Makefile',             # C Makefile
+  '**/conftest.dSYM',        # OS X build directory
+  "**/*.#{CONFIG['DLEXT']}", # C shared object
+  'lib/sys/uptime.rb'        # Renamed source file
+)
 
 desc "Build the sys-uptime package on UNIX systems (but don't install it)"
 task :build => [:clean] do
