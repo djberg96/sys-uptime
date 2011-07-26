@@ -235,7 +235,7 @@ void Init_uptime()
    /* The Uptime::Error class is raised if any of the Uptime methods fail */
    cUptimeError = rb_define_class_under(cUptime, "Error", rb_eStandardError);
 
-   /* 0.5.3: The version of this library */
+   /* 0.5.4: The version of this library */
    rb_define_const(cUptime, "VERSION", rb_str_new2(SYS_UPTIME_VERSION));
 
    /* Singleton Methods */
