@@ -21,8 +21,8 @@ task :build => [:clean] do
     unless Config::CONFIG['host_os'] =~ /windows|mswin|win32|mingw|cygwin|dos|linux/i
       ruby 'extconf.rb'
       sh 'make'
+      cp "uptime." + CONFIG['DLEXT'], "sys"
     end
-    cp "uptime." + CONFIG['DLEXT'], "sys"
   end
 end
 
