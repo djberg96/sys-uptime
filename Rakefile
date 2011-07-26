@@ -15,80 +15,70 @@ CLEAN.include(
   'lib/sys/uptime.rb'        # Renamed source file
 )
 
-desc "Build the sys-uptime package on UNIX systems (but don't install it)"
+desc "Build the sys-uptime library on UNIX systems"
 task :build => [:clean] do
   Dir.chdir('ext') do
-    unless Config::CONFIG['host_os'] =~ /mswin|win32|mingw|cygwin|dos|linux/i
+    unless Config::CONFIG['host_os'] =~ /windows|mswin|win32|mingw|cygwin|dos|linux/i
       ruby 'extconf.rb'
       sh 'make'
-      build_file = 'uptime.' + Config::CONFIG['DLEXT']
-      cp(build_file, 'sys')
     end
   end
 end
 
-if Config::CONFIG['host_os'] =~ /mswin|win32|mingw|cygwin|dos|linux/i
-  desc "Install the sys-uptime package"
-  task :install do
-    dest = File.join(Config::CONFIG['sitelibdir'], 'sys')
-    file = File.join(dest, 'uptime.rb')
+namespace :gem do
+  desc "Create the gem for the sys-uptime library"
+  task :create => [:clean] do
+    spec = eval(IO.read('sys-uptime.gemspec'))
 
-    Dir.mkdir(dest) unless File.exists? dest
-
-    if Config::CONFIG['host_os'] =~ /linux/i
-      cp 'lib/sys/linux.rb', file, :verbose => true
-    else
-      cp 'lib/sys/windows.rb', file, :verbose => true
+    case Config::CONFIG['host_os']
+      when /windows|win32|cygwin|mingw|dos|mswin/
+        spec.platform = Gem::Platform::CURRENT
+        spec.platform.cpu = 'universal'
+        spec.require_paths = ['lib', 'lib/windows'] 
+      when /linux/
+        spec.platform = Gem::Platform.new('universal-linux')
+        spec.require_paths = ['lib', 'lib/linux'] 
+      else
+        spec.platform = Gem::Platform::RUBY
+        spec.extensions = ['ext/extconf.rb']
+        spec.extra_rdoc_files << 'ext/sys/uptime.c'
     end
+
+    Gem::Builder.new(spec).build
   end
-else
-  desc "Install the sys-uptime package"
-  task :install => [:build] do
-    Dir.chdir('ext') do
-      sh 'make install'
-    end
+
+  desc "Install the sys-uptime library"
+  task :install => [:create] do
+    gem_name = Dir['*.gem'].first
+    sh "gem install #{gem_name}"
   end
 end
 
-desc "Install the sys-uptime package as a gem"
-task :install_gem do
-  ruby 'sys-uptime.gemspec'
-  file = Dir["*.gem"].first
-  sh "gem install #{file}"
-end
-
-desc "Run the example program"
 task :example => [:build] do
-  Dir.mkdir('sys') unless File.exists?('sys')
-  if Config::CONFIG['host_os'] =~ /mswin|win32|mingw|cygwin|dos|linux/i
-    if Config::CONFIG['host_os'].match('linux')
-      FileUtils.cp('lib/sys/linux.rb', 'sys/uptime.rb')
+  case Config::CONFIG['host_os']
+    when /windows|win32|cygwin|mingw|dos|mswin/
+      path = 'lib/windows'
+    when /linux/
+      path = 'lib/linux'
     else
-      FileUtils.cp('lib/sys/windows.rb', 'sys/uptime.rb')
-    end
-  else
-    build_file = 'ext/uptime.' + Config::CONFIG['DLEXT']
-    FileUtils.cp(build_file, 'sys')
+      path = 'ext'
   end
-  sh 'ruby -I. examples/uptime_test.rb'
+  sh "ruby -I#{path} examples/uptime_example.rb" 
 end
 
 desc "Run the test suite"
 Rake::TestTask.new("test") do |t|
-  if Config::CONFIG['host_os'] =~ /mswin|win32|mingw|cygwin|dos|linux/i
-    if Config::CONFIG['host_os'].match('linux')
-      FileUtils.cp('lib/sys/linux.rb', 'lib/sys/uptime.rb')
-    else
-      FileUtils.cp('lib/sys/windows.rb', 'lib/sys/uptime.rb')
-    end
-  else
-    task :test => :build
-    t.libs << 'ext'
-    t.libs.delete('lib')
-  end
-   
+  task :test => :build
+  t.libs << 'test' << '.'
   t.warning = true
   t.verbose = true
+
+  case Config::CONFIG['host_os']
+    when /windows|win32|cygwin|mingw|dos|mswin/
+      t.libs << 'lib/windows'
+    when /linux/
+      t.libs << 'lib/linux'
+  end
 end
 
 task :default => :test
