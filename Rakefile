@@ -7,6 +7,7 @@ include Config
 CLEAN.include(
   '**/*.gem',                # Gem files
   '**/*.rbc',                # Rubinius
+  '.rbx', '**/*/.rbx',       # Rubinius
   '**/*.o',                  # C object file
   '**/*.log',                # Ruby extension build log
   '**/Makefile',             # C Makefile
