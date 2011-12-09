@@ -7,6 +7,7 @@ module Sys
   # system's uptime, including boot time.
   class Uptime
     extend FFI::Library
+    ffi_lib('c')
       
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
