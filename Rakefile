@@ -11,9 +11,12 @@ namespace 'gem' do
     
     if Config::CONFIG['host_os'] =~ /mswin32|mingw|cygwin|dos|windows/i
       spec.require_paths = ['lib', 'lib/windows']
+      spec.platform = Gem::Platform::CURRENT
+      spec.platform.cpu = 'universal'
+      spec.platform.version = nil
     else
       spec.require_paths = ['lib', 'lib/unix']
-      spec.add_dependency('ffi', '>= 0.5.0')
+      spec.add_dependency('ffi', '>= 1.0.0')
     end
 
     Gem::Builder.new(spec).build
@@ -37,3 +40,5 @@ Rake::TestTask.new do |t|
   t.warning = true
   t.verbose = true
 end
+
+task :default => :test
