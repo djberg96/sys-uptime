@@ -94,7 +94,7 @@ module Sys
     def self.boot_time
       if Config::CONFIG['host_os'] =~ /linux/i
         Time.now - self.seconds
-      elsif respond_to? :sysctl
+      elsif respond_to?(:sysctl, true)
         tv = Timeval.new
         mib  = FFI::MemoryPointer.new(:int, 2).write_array_of_int([CTL_KERN, KERN_BOOTTIME])
         size = FFI::MemoryPointer.new(:long, 1).write_int(tv.size)
@@ -133,7 +133,7 @@ module Sys
         rescue Exception => err
           raise Error, err
         end
-      elsif respond_to? :sysctl
+      elsif respond_to?(:sysctl, true)
         tv   = Timeval.new
         mib  = FFI::MemoryPointer.new(:int, 2).write_array_of_int([CTL_KERN, KERN_BOOTTIME])
         size = FFI::MemoryPointer.new(:long, 1).write_int(tv.size)
