@@ -71,6 +71,22 @@ module Sys
 
     class Utmpx < FFI::Struct
       layout(
+        :ut_user, [:char, 32],
+        :ut_id,   [:char, 4],
+        :ut_line, [:char, 32],
+        :ut_pid,  :pid_t,
+        :ut_type, :short,
+        :ut_exit, ExitStatus,
+        :ut_tv,   Timeval,
+        :ut_session, :int,
+        :padding, [:int, 5],
+        :ut_host, [:char, 257]
+      )
+    end
+
+=begin
+    class Utmpx < FFI::Struct
+      layout(
         :ut_type, :short,
         :ut_pid, :pid_t,
         :ut_line, [:char, 32],
@@ -82,6 +98,7 @@ module Sys
         :ut_tv, Timeval
       )
     end
+=end
 
     public
 
