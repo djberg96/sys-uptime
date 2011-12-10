@@ -1,15 +1,15 @@
 require 'rake'
 require 'rake/clean'
 require 'rake/testtask'
-require 'rbconfig'
-include Config
+
+CLEAN.include("**/*.gem", "**/*.rbx", "**/*.rbc")
 
 namespace 'gem' do
   desc 'Build the sys-uptime gem'
-  task :build do
+  task :create => [:clean] do
     spec = eval(IO.read('sys-uptime.gemspec'))
     
-    if Config::CONFIG['host_os'] =~ /mswin32|mingw|cygwin|dos|windows/i
+    if File::ALT_SEPARATOR
       spec.require_paths = ['lib', 'lib/windows']
       spec.platform = Gem::Platform::CURRENT
       spec.platform.cpu = 'universal'
@@ -31,7 +31,7 @@ end
 
 desc "Run the test suite"
 Rake::TestTask.new do |t|
-  if Config::CONFIG['host_os'] =~ /mswin32|mingw|cygwin|dos|windows/i
+  if File::ALT_SEPARATOR
     t.libs << 'lib/windows'
   else
     t.libs << 'lib/unix'
