@@ -5,11 +5,11 @@ require 'time'
 
 # The Sys module serves as a namespace only.
 module Sys
-   
+
   # The Uptime class encapsulates various bits of information regarding your
   # system's uptime, including boot time.
   class Uptime
-      
+
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
 
@@ -37,7 +37,7 @@ module Sys
         }
       end
     end
-      
+
     # Calculates and returns the number of days, hours, minutes and
     # seconds the +host+ has been running as a colon-separated string.
     #
@@ -50,7 +50,7 @@ module Sys
     def self.uptime(host = Socket.gethostname)
       get_dhms(host).join(':')
     end
-      
+
     # Calculates and returns the number of days, hours, minutes and
     # seconds the +host+ has been running as a four-element Array.
     # The localhost is used if no +host+ is provided.
@@ -62,7 +62,7 @@ module Sys
     def self.dhms(host = Socket.gethostname)
       get_dhms(host)
     end
-      
+
     # Returns the total number of days the system has been up on +host+,
     # or the localhost if no host is provided.
     #
@@ -73,7 +73,7 @@ module Sys
     def self.days(host = Socket.gethostname)
       hours(host) / 24
     end
-      
+
     # Returns the total number of hours the system has been up on +host+,
     # or the localhost if no host is provided.
     #
@@ -84,7 +84,7 @@ module Sys
     def self.hours(host=Socket.gethostname)
       minutes(host) / 60
     end
-      
+
     # Returns the total number of minutes the system has been up on +host+,
     # or the localhost if no host is provided.
     #
@@ -95,7 +95,7 @@ module Sys
     def self.minutes(host=Socket.gethostname)
       seconds(host) / 60
     end
-    
+
     # Returns the total number of seconds the system has been up on +host+,
     # or the localhost if no host is provided.
     #
@@ -106,9 +106,9 @@ module Sys
     def self.seconds(host=Socket.gethostname)
       get_seconds(host)
     end
-    
+
     private
-    
+
     # Converts a string in the format '20040703074625.015625-360' into a
     # Ruby Time object.
     #
@@ -116,7 +116,9 @@ module Sys
       return if str.nil?
       return Time.parse(str.split('.').first)
     end
-    
+
+    private_class_method :parse_ms_date
+
     # Get the actual days, hours, minutes and seconds since boot using WMI.
     #
     def self.get_dhms(host)
@@ -132,6 +134,8 @@ module Sys
       [days, hours, minutes, seconds]
     end
 
+    private_class_method :get_dhms
+
     # Returns the number of seconds since boot.
     #
     def self.get_seconds(host)
@@ -144,15 +148,17 @@ module Sys
         query = "select LastBootupTime from Win32_OperatingSystem"
         results = wmi.ExecQuery(query)
         now = Time.now
-         
+
         results.each{ |ole|
           time_array = parse_ms_date(ole.LastBootupTime)
           boot_time = Time.mktime(*time_array)
           break
         }
       end
-          
+
       (now - boot_time).to_i
     end
+
+    private_class_method :get_seconds
   end
 end

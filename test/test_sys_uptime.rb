@@ -9,6 +9,7 @@ gem 'test-unit'
 
 require 'sys/uptime'
 require 'test/unit'
+require 'socket'
 include Sys
 
 class TC_Sys_Uptime < Test::Unit::TestCase
@@ -67,7 +68,13 @@ class TC_Sys_Uptime < Test::Unit::TestCase
   end
 
   test "uptime method does not accept any arguments" do
+    omit_if(File::ALT_SEPARATOR)
     assert_raise(ArgumentError){ Uptime.uptime(1) }
+  end
+
+  test "uptime accepts a host name on Windows" do
+    omit_unless(File::ALT_SEPARATOR, "MS Windows only")
+    assert_nothing_raised{ Uptime.uptime(Socket.gethostname) }
   end
 
   test "dhms method basic functionality" do
