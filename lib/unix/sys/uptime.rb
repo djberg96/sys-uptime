@@ -17,6 +17,13 @@ module Sys
 
     private
 
+    # Hit this issue on Linux, not sure why
+    begin
+      find_type(:clock_t)
+    rescue TypeError
+      typedef(:long, :clock_t)
+    end
+
     attach_function :strerror, [:int],     :string
     attach_function :sysconf,  [:int],     :long
     attach_function :time,     [:pointer], :time_t
@@ -124,7 +131,7 @@ module Sys
     def self.seconds
       if Config::CONFIG['host_os'] =~ /linux/i
         begin
-          IO.read(UPTIME_FILE).split.first.to_i
+          IO.read('/proc/uptime').split.first.to_i
         rescue Exception => err
           raise Error, err
         end
