@@ -35,8 +35,6 @@ module Sys
       attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
       private_class_method :sysctl
     rescue FFI::NotFoundError
-      # Do nothing, not supported.
-    else
       attach_function :setutxent, [], :void
       attach_function :getutxent, [], :pointer
       attach_function :endutxent, [], :void
