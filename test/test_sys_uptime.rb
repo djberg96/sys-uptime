@@ -47,7 +47,7 @@ class TC_Sys_Uptime < Test::Unit::TestCase
   end
 
   test "days method basic functionality" do
-    assert_respond_to(Uptime,:days)
+    assert_respond_to(Uptime, :days)
     assert_nothing_raised{ Uptime.days }
   end
 
@@ -57,7 +57,7 @@ class TC_Sys_Uptime < Test::Unit::TestCase
   end
 
   test "uptime method basic functionality" do
-    assert_respond_to(Uptime,:uptime)
+    assert_respond_to(Uptime, :uptime)
     assert_nothing_raised{ Uptime.uptime }
   end
 
@@ -71,7 +71,7 @@ class TC_Sys_Uptime < Test::Unit::TestCase
   end
 
   test "dhms method basic functionality" do
-    assert_respond_to(Uptime,:dhms)
+    assert_respond_to(Uptime, :dhms)
     assert_nothing_raised{ Uptime.dhms }
     assert_kind_of(Array, Uptime.dhms)
   end
@@ -82,7 +82,7 @@ class TC_Sys_Uptime < Test::Unit::TestCase
   end
 
   test "boot_time method basic functionality" do
-    assert_respond_to(Uptime,:boot_time)
+    assert_respond_to(Uptime, :boot_time)
     assert_nothing_raised{ Uptime.boot_time }
   end
 
@@ -92,5 +92,11 @@ class TC_Sys_Uptime < Test::Unit::TestCase
 
   test "Uptime class cannot be instantiated" do
     assert_kind_of(StandardError, Uptime::Error.new)
+  end
+
+  test "Ensure that ffi functions are private" do
+    methods = Uptime.methods(false).map{ |e| e.to_s }
+    assert_false(Uptime.methods.include?('time'))
+    assert_false(Uptime.methods.include?('times'))
   end
 end

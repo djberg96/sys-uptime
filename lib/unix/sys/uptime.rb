@@ -2,16 +2,16 @@ require 'ffi'
 
 # The Sys module serves as a namespace only.
 module Sys
-   
+
   # The Uptime class encapsulates various bits of information regarding your
   # system's uptime, including boot time.
   class Uptime
     extend FFI::Library
-    ffi_lib('c')
-      
+    ffi_lib FFI::Library::LIBC
+
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
-      
+
     # The version of the sys-uptime library
     VERSION = '0.6.0'
 
@@ -22,20 +22,24 @@ module Sys
     attach_function :time,     [:pointer], :time_t
     attach_function :times,    [:pointer], :clock_t
 
+    private_class_method :strerror, :sysconf, :time, :times
+
     begin
       attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
+      private_class_method :sysctl
     rescue FFI::NotFoundError
       # Do nothing, not supported.
     else
       attach_function :setutxent, [], :void
       attach_function :getutxent, [], :pointer
       attach_function :endutxent, [], :void
+      private_class_method :setutxent, :getutxent, :endutxent
     end
 
-    CTL_KERN = 1       # Kernel
-    KERN_BOOTTIME = 21 # Time kernel was booted
-    TICKS = 100        # Ticks per second (FIXME: use sysconf)
-    BOOT_TIME = 2      # Boot time
+    CTL_KERN      = 1   # Kernel
+    KERN_BOOTTIME = 21  # Time kernel was booted
+    TICKS         = 100 # Ticks per second (TODO: use sysconf)
+    BOOT_TIME     = 2   # Boot time
 
     class Tms < FFI::Struct
       layout(
@@ -59,7 +63,7 @@ module Sys
         :e_exit, :short
       )
     end
- 
+
     class Utmpx < FFI::Struct
       layout(
         :ut_type, :short,
