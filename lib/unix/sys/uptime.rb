@@ -84,22 +84,6 @@ module Sys
       )
     end
 
-=begin
-    class Utmpx < FFI::Struct
-      layout(
-        :ut_type, :short,
-        :ut_pid, :pid_t,
-        :ut_line, [:char, 32],
-        :ut_id, :char,
-        :ut_user, [:char, 32],
-        :ut_host, [:char, 256],
-        :ut_exit, ExitStatus,
-        :ut_session, :long,
-        :ut_tv, Timeval
-      )
-    end
-=end
-
     public
 
     # Returns a Time object indicating the time the system was last booted.
