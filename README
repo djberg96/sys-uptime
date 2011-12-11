@@ -2,11 +2,10 @@
   A Ruby interface for getting system uptime information.
 
 = Prerequisites
-  ffi 0.5.0 or later.
+  ffi 0.1.0 or later on Unixy platforms.
 
 = Installation
-  gem install sys-uptime                    # Unix platforms
-  gem install sys-uptime --platform mswin32 # MS Windows
+  gem install sys-uptime
 
 = Synopsis
   require 'sys/uptime'
@@ -35,7 +34,7 @@
 
 == Known Bugs
   None that I am aware of.  Please log any bugs you find on the project
-  website at http://www.rubyforge.org/projects/sysutils.
+  website at https://github.com/djberg96/sys-uptime.
 
 == Questions
   "Doesn't Struct::Tms do this?" - No.
@@ -44,7 +43,7 @@
   Artistic 2.0
     
 == Copyright
-  Copyright 2002-2010, Daniel J. Berger
+  Copyright 2002-2011, Daniel J. Berger
 
   All Rights Reserved. This module is free software. It may be used,
   redistributed and/or modified under the same terms as Ruby itself.
