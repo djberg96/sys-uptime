@@ -139,24 +139,7 @@ module Sys
     # Returns the number of seconds since boot.
     #
     def self.get_seconds(host)
-      cs = "winmgmts://#{host}/root/cimv2"
-      begin
-        wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
-      else
-        query = "select LastBootupTime from Win32_OperatingSystem"
-        results = wmi.ExecQuery(query)
-        now = Time.now
-
-        results.each{ |ole|
-          time_array = parse_ms_date(ole.LastBootupTime)
-          boot_time = Time.mktime(*time_array)
-          break
-        }
-      end
-
-      (now - boot_time).to_i
+      (Time.now - boot_time).to_i
     end
 
     private_class_method :get_seconds
