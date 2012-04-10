@@ -103,7 +103,7 @@ class TC_Sys_Uptime < Test::Unit::TestCase
 
   test "Ensure that ffi functions are private" do
     methods = Uptime.methods(false).map{ |e| e.to_s }
-    assert_false(Uptime.methods.include?('time'))
-    assert_false(Uptime.methods.include?('times'))
+    assert_false(methods.include?('time'))
+    assert_false(methods.include?('times'))
   end
 end
