@@ -1,3 +1,7 @@
+== 0.6.1 - ???
+* Refactored a private method in the MS Windows source.
+* Minor fix for one private method test.
+
 == 0.6.0 - 11-Dec-2011
 * Switched Unix code to use FFI.
 * Removed all of the C related tasks from the Rakefile and added the gem:build
