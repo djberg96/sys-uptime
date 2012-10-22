@@ -93,7 +93,7 @@ module Sys
     #    Sys::Uptime.boot_time # => Mon Jul 13 06:08:25 -0600 2009
     #
     def self.boot_time
-      if Config::CONFIG['host_os'] =~ /linux/i
+      if RbConfig::CONFIG['host_os'] =~ /linux/i
         Time.now - self.seconds
       elsif respond_to?(:sysctl, true)
         tv = Timeval.new
@@ -128,7 +128,7 @@ module Sys
     #    Sys::Uptime.seconds => 118800
     #
     def self.seconds
-      if Config::CONFIG['host_os'] =~ /linux/i
+      if RbConfig::CONFIG['host_os'] =~ /linux/i
         begin
           IO.read('/proc/uptime').split.first.to_i
         rescue Exception => err
