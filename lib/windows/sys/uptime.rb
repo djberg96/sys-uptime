@@ -14,7 +14,7 @@ module Sys
     class Error < StandardError; end
 
     # The version of the sys-uptime library.
-    VERSION = '0.6.0'
+    VERSION = '0.6.1'
 
     # Returns the boot time as a Time object.
     #

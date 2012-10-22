@@ -4,17 +4,14 @@
 # Test suite for sys-uptime. This should generally be run via the
 # 'rake test' task, since it handles the pre-setup code for you.
 #####################################################################
-require 'rubygems'
-gem 'test-unit'
-
 require 'sys/uptime'
-require 'test/unit'
+require 'test-unit'
 require 'socket'
 include Sys
 
 class TC_Sys_Uptime < Test::Unit::TestCase
   test "version is set to expected value" do
-    assert_equal('0.6.0', Uptime::VERSION)
+    assert_equal('0.6.1', Uptime::VERSION)
   end
 
   test "seconds method basic functionality" do
