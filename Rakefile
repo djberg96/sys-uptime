@@ -19,7 +19,12 @@ namespace 'gem' do
       spec.add_dependency('ffi', '>= 1.0.0')
     end
 
-    Gem::Builder.new(spec).build
+    if Gem::VERSION < "2.0"
+      Gem::Builder.new(spec).build
+    else
+      require 'rubygems/package'
+      Gem::Package.build(spec)
+    end
   end
 
   desc 'Install the sys-uptime gem'
