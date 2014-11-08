@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name      = 'sys-uptime'
-  spec.version   = '0.6.1'
+  spec.version   = '0.6.2'
   spec.author    = 'Daniel J. Berger'
   spec.license   = 'Artistic 2.0'
   spec.email     = 'djberg96@gmail.com'
@@ -12,7 +12,6 @@ Gem::Specification.new do |spec|
   spec.files     = Dir["**/*"].reject{ |f| f.include?('git') }
 
   spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST']
-  spec.rubyforge_project = 'sysutils'
 
   spec.description = <<-EOF
     The sys-uptime library is a simple interface for gathering uptime
