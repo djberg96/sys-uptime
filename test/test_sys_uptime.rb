@@ -11,7 +11,7 @@ include Sys
 
 class TC_Sys_Uptime < Test::Unit::TestCase
   test "version is set to expected value" do
-    assert_equal('0.6.1', Uptime::VERSION)
+    assert_equal('0.6.2', Uptime::VERSION)
   end
 
   test "seconds method basic functionality" do
