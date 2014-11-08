@@ -1,3 +1,6 @@
+== 0.6.2 - 8-Nov-2014
+* Minor updates to gemspec and Rakefile.
+
 == 0.6.1 - 22-Oct-2012
 * Refactored a private method in the MS Windows source.
 * Minor fix for one private method test.
