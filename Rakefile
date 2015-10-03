@@ -7,7 +7,9 @@ CLEAN.include("**/*.gem", "**/*.rbx", "**/*.rbc")
 namespace 'gem' do
   desc 'Build the sys-uptime gem'
   task :create => [:clean] do
+    require 'rubygems/package'
     spec = eval(IO.read('sys-uptime.gemspec'))
+    spec.signing_key = File.join(Dir.home, '.ssh', 'gem-private_key.pem')
     
     if File::ALT_SEPARATOR
       spec.require_paths = ['lib', 'lib/windows']
@@ -19,12 +21,7 @@ namespace 'gem' do
       spec.add_dependency('ffi', '>= 1.0.0')
     end
 
-    if Gem::VERSION < "2.0"
-      Gem::Builder.new(spec).build
-    else
-      require 'rubygems/package'
-      Gem::Package.build(spec)
-    end
+    Gem::Package.build(spec)
   end
 
   desc 'Install the sys-uptime gem'
