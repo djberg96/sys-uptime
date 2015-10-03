@@ -1,3 +1,9 @@
+== 0.7.0 - 3-Oct-2015
+* Changed license to Apache 2.0.
+* Added a cert. This gem is now signed.
+* Added a sys-uptime.rb file for convenience.
+* Gem related tasks in the Rakefile now assume Rubygems 2.x.
+
 == 0.6.2 - 8-Nov-2014
 * Minor updates to gemspec and Rakefile.
 
