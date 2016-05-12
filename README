@@ -8,7 +8,7 @@
   gem install sys-uptime
 
 = Synopsis
-  require 'sys/uptime'
+  require 'sys-uptime'
   include Sys
 
   # Get everything
