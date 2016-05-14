@@ -1,3 +1,8 @@
+== 0.7.1 - 14-May-2016
+* Altered internal layout, which also fixed a require bug. Thanks go
+  to jkburges for the spot.
+* Moved the VERSION constant into a single file shared by all platforms.
+
 == 0.7.0 - 3-Oct-2015
 * Changed license to Apache 2.0.
 * Added a cert. This gem is now signed.
