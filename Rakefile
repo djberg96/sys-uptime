@@ -12,16 +12,14 @@ namespace 'gem' do
     spec.signing_key = File.join(Dir.home, '.ssh', 'gem-private_key.pem')
     
     if File::ALT_SEPARATOR
-      spec.require_paths = ['lib', 'lib/windows']
       spec.platform = Gem::Platform::CURRENT
       spec.platform.cpu = 'universal'
       spec.platform.version = nil
     else
-      spec.require_paths = ['lib', 'lib/unix']
       spec.add_dependency('ffi', '>= 1.0.0')
     end
 
-    Gem::Package.build(spec)
+    Gem::Package.build(spec, true)
   end
 
   desc 'Install the sys-uptime gem'
