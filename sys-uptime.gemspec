@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uptime'
-  spec.version    = '0.7.0'
+  spec.version    = '0.7.1'
   spec.author     = 'Daniel J. Berger'
   spec.license    = 'Apache 2.0'
   spec.email      = 'djberg96@gmail.com'
