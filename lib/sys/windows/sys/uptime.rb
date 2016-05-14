@@ -13,9 +13,6 @@ module Sys
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
 
-    # The version of the sys-uptime library.
-    VERSION = '0.7.0'
-
     # Returns the boot time as a Time object.
     #
     # Example:

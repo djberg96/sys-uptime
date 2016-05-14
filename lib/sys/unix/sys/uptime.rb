@@ -12,9 +12,6 @@ module Sys
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
 
-    # The version of the sys-uptime library
-    VERSION = '0.7.0'
-
     private
 
     # Hit this issue on Linux, not sure why
