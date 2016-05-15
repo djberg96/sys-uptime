@@ -12,9 +12,7 @@ namespace 'gem' do
     spec.signing_key = File.join(Dir.home, '.ssh', 'gem-private_key.pem')
     
     if File::ALT_SEPARATOR
-      spec.platform = Gem::Platform::CURRENT
-      spec.platform.cpu = 'universal'
-      spec.platform.version = nil
+      spec.platform = Gem::Platform.new(['universal','mingw32'])
     else
       spec.add_dependency('ffi', '>= 1.0.0')
     end
