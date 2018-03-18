@@ -50,7 +50,7 @@ class TC_Sys_Uptime < Test::Unit::TestCase
   end
 
   test "days method returns a plausible value" do
-    assert_kind_of(Fixnum, Uptime.days)
+    assert_kind_of(Integer, Uptime.days)
     assert_true(Uptime.days >= 0)
   end
 
