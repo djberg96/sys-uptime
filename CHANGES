@@ -1,3 +1,8 @@
+== 0.7.2 - 4-Nov-2018
+* Added metadata to the gemspec.
+* The VERSION constant is now frozen.
+* Updated cert.
+
 == 0.7.1 - 14-May-2016
 * Altered internal layout, which also fixed a require bug. Thanks go
   to jkburges for the spot.
