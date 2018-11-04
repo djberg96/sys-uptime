@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uptime'
-  spec.version    = '0.7.1'
+  spec.version    = '0.7.2'
   spec.author     = 'Daniel J. Berger'
   spec.license    = 'Apache 2.0'
   spec.email      = 'djberg96@gmail.com'
@@ -13,6 +13,15 @@ Gem::Specification.new do |spec|
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
   spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST']
+
+  spec.metadata = {
+    'homepage_uri'      => 'https://github.com/djberg96/sys-uptime',
+    'bug_tracker_uri'   => 'https://github.com/djberg96/sys-uptime/issues',
+    'changelog_uri'     => 'https://github.com/djberg96/sys-uptime/blob/master/CHANGES',
+    'documentation_uri' => 'https://github.com/djberg96/sys-uptime/wiki',
+    'source_code_uri'   => 'https://github.com/djberg96/sys-uptime',
+    'wiki_uri'          => 'https://github.com/djberg96/sys-uptime/wiki'
+  }
 
   spec.description = <<-EOF
     The sys-uptime library is a simple interface for gathering uptime
