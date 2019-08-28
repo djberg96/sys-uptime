@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name       = 'sys-uptime'
   spec.version    = '0.7.2'
   spec.author     = 'Daniel J. Berger'
-  spec.license    = 'Apache 2.0'
+  spec.license    = 'Apache-2.0'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'https://github.com/djberg96/sys-uptime'
   spec.summary    = 'A Ruby interface for getting system uptime information.'
