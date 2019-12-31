@@ -8,4 +8,4 @@
 * lib/sys-uptime.rb
 * lib/unix/sys/uptime.rb
 * lib/windows/sys/uptime.rb
-* test/test_sys_uptime.rb
+* spec/sys_uptime_spec.rb
