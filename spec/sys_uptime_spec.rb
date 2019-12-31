@@ -68,40 +68,36 @@ describe Sys::Uptime do
     expect{ Sys::Uptime.uptime(1) }.to raise_error(ArgumentError)
   end
 
-=begin
-  example "uptime accepts a host name on Windows" do
-    omit_unless(File::ALT_SEPARATOR, "MS Windows only")
-    assert_nothing_raised{ Uptime.uptime(Socket.gethostname) }
+  example "uptime accepts a host name on Windows", :if => File::ALT_SEPARATOR do
+    expect{ Sys::Uptime.uptime(Socket.gethostname) }.not_to raise_error
   end
 
   example "dhms method basic functionality" do
-    assert_respond_to(Uptime, :dhms)
-    assert_nothing_raised{ Uptime.dhms }
-    assert_kind_of(Array, Uptime.dhms)
+    expect(Sys::Uptime).to respond_to(:dhms)
+    expect{ Sys::Uptime.dhms }.not_to raise_error
+    expect(Sys::Uptime.dhms).to be_kind_of(Array)
   end
 
   example "dhms method returns an array of four elements" do
-    assert_false(Uptime.dhms.empty?)
-    assert_equal(4, Uptime.dhms.length)
+    expect(Sys::Uptime.dhms).not_to be_empty
+    expect(Sys::Uptime.dhms.length).to eql(4)
   end
 
   example "boot_time method basic functionality" do
-    assert_respond_to(Uptime, :boot_time)
-    assert_nothing_raised{ Uptime.boot_time }
+    expect(Sys::Uptime).to respond_to(:boot_time)
+    expect{ Sys::Uptime.boot_time }.not_to raise_error
   end
 
   example "boot_time method returns a Time object" do
-    assert_kind_of(Time, Uptime.boot_time)
+    expect(Sys::Uptime.boot_time).to be_kind_of(Time)
   end
 
   example "Uptime class cannot be instantiated" do
-    assert_kind_of(StandardError, Uptime::Error.new)
+    expect{ Sys::Uptime.new }.to raise_error(StandardError)
   end
 
   example "Ensure that ffi functions are private" do
-    methods = Uptime.methods(false).map{ |e| e.to_s }
-    assert_false(methods.include?('time'))
-    assert_false(methods.include?('times'))
+    methods = Sys::Uptime.methods(false).map{ |e| e.to_s }
+    expect(methods).not_to include('time', 'times')
   end
-=end
 end

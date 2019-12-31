@@ -26,7 +26,7 @@ module Sys
     attach_function :time,     [:pointer], :time_t
     attach_function :times,    [:pointer], :clock_t
 
-    private_class_method :strerror, :sysconf, :time, :times
+    private_class_method :strerror, :sysconf, :time, :times, :new
 
     begin
       attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
