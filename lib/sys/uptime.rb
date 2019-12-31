@@ -7,6 +7,6 @@ end
 module Sys
   class Uptime
     # The version of the sys-uptime library
-    VERSION = '0.7.2'.freeze
+    VERSION = '0.7.3'.freeze
   end
 end
