@@ -2,17 +2,18 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uptime'
-  spec.version    = '0.7.2'
+  spec.version    = '0.7.3'
   spec.author     = 'Daniel J. Berger'
   spec.license    = 'Apache-2.0'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'https://github.com/djberg96/sys-uptime'
   spec.summary    = 'A Ruby interface for getting system uptime information.'
-  spec.test_file  = 'test/test_sys_uptime.rb'
+  spec.test_file  = 'spec/sys_uptime_spec.rb'
   spec.files      = Dir["**/*"].reject{ |f| f.include?('git') }
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
-  spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST']
+  spec.extra_rdoc_files = Dir["*.rdoc"]
+  spec.add_development_dependency 'rspec', '~> 3'
 
   spec.metadata = {
     'homepage_uri'      => 'https://github.com/djberg96/sys-uptime',

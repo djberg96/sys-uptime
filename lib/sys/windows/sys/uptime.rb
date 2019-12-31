@@ -13,6 +13,9 @@ module Sys
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
 
+    # You cannot instantiate an instance of Sys::Uptime.
+    private_class_method :new
+
     # Returns the boot time as a Time object.
     #
     # Example:

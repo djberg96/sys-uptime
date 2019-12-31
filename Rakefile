@@ -1,6 +1,7 @@
 require 'rake'
 require 'rake/clean'
 require 'rake/testtask'
+require 'rspec/core/rake_task'
 
 CLEAN.include("**/*.gem", "**/*.rbx", "**/*.rbc")
 
@@ -28,15 +29,6 @@ namespace 'gem' do
 end
 
 desc "Run the test suite"
-Rake::TestTask.new do |t|
-  if File::ALT_SEPARATOR
-    t.libs << 'lib/windows'
-  else
-    t.libs << 'lib/unix'
-  end
+RSpec::Core::RakeTask.new(:spec)
 
-  t.warning = true
-  t.verbose = true
-end
-
-task :default => :test
+task :default => :spec
