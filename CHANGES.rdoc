@@ -1,3 +1,12 @@
+== 0.7.3 - 31-Dec-2019
+* Attempting to call Sys::Uptime.new will now raise an error. I thought
+  this was already the case, but apparently one of the tests was bad.
+* Added explicit .rdoc extensions to various text files so that github
+  will display them nicely.
+* Switched from test-unit to rspec as the testing framework of choice.
+* Updated the gemspec to reflect the filename updates, as well as the
+  added development dependency.
+
 == 0.7.2 - 4-Nov-2018
 * Added metadata to the gemspec.
 * The VERSION constant is now frozen.
