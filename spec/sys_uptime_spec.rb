@@ -10,7 +10,7 @@ require 'socket'
 
 describe Sys::Uptime do
   example "version is set to expected value" do
-    expect(Sys::Uptime::VERSION).to eql('0.7.2')
+    expect(Sys::Uptime::VERSION).to eql('0.7.3')
     expect(Sys::Uptime::VERSION.frozen?).to be(true)
   end
 
