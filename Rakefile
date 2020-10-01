@@ -3,7 +3,7 @@ require 'rake/clean'
 require 'rake/testtask'
 require 'rspec/core/rake_task'
 
-CLEAN.include("**/*.gem", "**/*.rbx", "**/*.rbc")
+CLEAN.include("**/*.gem", "**/*.rbx", "**/*.rbc", "**/*.lock")
 
 namespace 'gem' do
   desc 'Build the sys-uptime gem'
