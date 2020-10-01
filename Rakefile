@@ -3,7 +3,7 @@ require 'rake/clean'
 require 'rake/testtask'
 require 'rspec/core/rake_task'
 
-CLEAN.include("**/*.gem", "**/*.rbx", "**/*.rbc")
+CLEAN.include("**/*.gem", "**/*.rbx", "**/*.rbc", "**/*.lock")
 
 namespace 'gem' do
   desc 'Build the sys-uptime gem'
@@ -13,12 +13,12 @@ namespace 'gem' do
     spec.signing_key = File.join(Dir.home, '.ssh', 'gem-private_key.pem')
     
     if File::ALT_SEPARATOR
-      spec.platform = Gem::Platform.new(['universal','mingw32'])
+      spec.platform = Gem::Platform.new(['universal', 'mingw32'])
     else
-      spec.add_dependency('ffi', '>= 1.0.0')
+      spec.add_dependency('ffi', '~> 1.1')
     end
 
-    Gem::Package.build(spec, true)
+    Gem::Package.build(spec)
   end
 
   desc 'Install the sys-uptime gem'

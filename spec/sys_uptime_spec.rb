@@ -5,7 +5,7 @@
 # 'rake test' task, since it handles the pre-setup code for you.
 #####################################################################
 require 'sys/uptime'
-require 'test-unit'
+require 'rspec'
 require 'socket'
 
 describe Sys::Uptime do
