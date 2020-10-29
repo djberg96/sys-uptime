@@ -12,7 +12,6 @@ Gem::Specification.new do |spec|
   spec.files      = Dir["**/*"].reject{ |f| f.include?('git') }
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
-  spec.extra_rdoc_files = Dir["*.rdoc"]
   spec.add_development_dependency 'rspec', '~> 3.9'
 
   spec.metadata = {
