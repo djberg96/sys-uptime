@@ -12,13 +12,12 @@ Gem::Specification.new do |spec|
   spec.files      = Dir["**/*"].reject{ |f| f.include?('git') }
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
-  spec.extra_rdoc_files = Dir["*.rdoc"]
   spec.add_development_dependency 'rspec', '~> 3.9'
 
   spec.metadata = {
     'homepage_uri'      => 'https://github.com/djberg96/sys-uptime',
     'bug_tracker_uri'   => 'https://github.com/djberg96/sys-uptime/issues',
-    'changelog_uri'     => 'https://github.com/djberg96/sys-uptime/blob/ffi/CHANGES.rdoc',
+    'changelog_uri'     => 'https://github.com/djberg96/sys-uptime/blob/ffi/CHANGES.md',
     'documentation_uri' => 'https://github.com/djberg96/sys-uptime/wiki',
     'source_code_uri'   => 'https://github.com/djberg96/sys-uptime',
     'wiki_uri'          => 'https://github.com/djberg96/sys-uptime/wiki'
