@@ -6,25 +6,25 @@ ffi 0.1.0 or later on Unixy platforms.
 
 ## Installation
 
-gem install sys-uptime
+`gem install sys-uptime`
 
 ## Synopsis
 ```
-  require 'sys-uptime'
-  include Sys
+require 'sys-uptime'
+include Sys
 
-  # Get everything
-  p Uptime.uptime
-  p Uptime.dhms.join(', ')
+# Get everything
+p Uptime.uptime
+p Uptime.dhms.join(', ')
 
-  # Get individual units
-  p Uptime.days
-  p Uptime.hours
-  p Uptime.minutes
-  p Uptime.seconds
+# Get individual units
+p Uptime.days
+p Uptime.hours
+p Uptime.minutes
+p Uptime.seconds
 
-  # Get the boot time
-  p Uptime.boot_time
+# Get the boot time
+p Uptime.boot_time
 ```
 
 ## Notes
