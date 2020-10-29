@@ -1,3 +1,7 @@
+## 0.7.5 - 29-Oct-2020
+* Switched docs to markdown format.
+* Added a Gemfile.
+
 ## 0.7.4 - 18-Mar-2020
 * Added a LICENSE file as per the requirements of the Apache-2.0 license.
 
