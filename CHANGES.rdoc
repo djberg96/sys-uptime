@@ -1,3 +1,6 @@
+== 0.7.4 - 18-Mar-2020
+* Added a LICENSE file as per the requirements of the Apache-2.0 license.
+
 == 0.7.3 - 31-Dec-2019
 * Attempting to call Sys::Uptime.new will now raise an error. I thought
   this was already the case, but apparently one of the tests was bad.
