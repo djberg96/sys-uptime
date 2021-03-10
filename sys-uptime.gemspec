@@ -12,7 +12,14 @@ Gem::Specification.new do |spec|
   spec.files      = Dir["**/*"].reject{ |f| f.include?('git') }
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
-  spec.add_development_dependency 'rspec', '~> 3.9'
+  if File::ALT_SEPARATOR
+    spec.platform = Gem::Platform.new(['universal', 'mingw32'])
+  else
+    spec.add_dependency('ffi', '~> 1.1')
+  end
+
+  spec.add_development_dependency('rake')
+  spec.add_development_dependency('rspec', '~> 3.9')
 
   spec.metadata = {
     'homepage_uri'      => 'https://github.com/djberg96/sys-uptime',
