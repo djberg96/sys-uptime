@@ -21,7 +21,7 @@ describe Sys::Uptime do
 
   example "seconds method returns a plausible value" do
     expect(Sys::Uptime.seconds).to be_kind_of(Integer)
-    expect(Sys::Uptime.seconds).to be > 300
+    expect(Sys::Uptime.seconds).to be > 60
   end
 
   example "minutes method basic functionality" do
@@ -31,7 +31,7 @@ describe Sys::Uptime do
 
   example "minutes method returns a plausible value" do
     expect(Sys::Uptime.minutes).to be_kind_of(Integer)
-    expect(Sys::Uptime.minutes).to be > 5
+    expect(Sys::Uptime.minutes).to be > 0
   end
 
   example "hours method basic functionality" do
