@@ -41,7 +41,7 @@ describe Sys::Uptime do
 
   example "hours method returns a plausible value" do
     expect(Sys::Uptime.hours).to be_kind_of(Integer)
-    expect(Sys::Uptime.hours).to be > 0
+    expect(Sys::Uptime.hours).to be >= 0
   end
 
   example "days method basic functionality" do
