@@ -29,7 +29,7 @@ module Sys
     private_class_method :strerror, :sysconf, :time, :times, :new
 
     begin
-      attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
+      attach_function :sysctl, %i[pointer uint pointer pointer pointer size_t], :int
       private_class_method :sysctl
     rescue FFI::NotFoundError
       attach_function :setutxent, [], :void
