@@ -29,7 +29,7 @@ module Sys
       rescue WIN32OLERuntimeError => err
         raise Error, err
       else
-        query = "select LastBootupTime from Win32_OperatingSystem"
+        query = 'select LastBootupTime from Win32_OperatingSystem'
         results = wmi.ExecQuery(query)
         results.each do |ole|
           time_array = parse_ms_date(ole.LastBootupTime)
