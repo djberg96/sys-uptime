@@ -81,7 +81,7 @@ module Sys
     #
     #    Sys::Uptime.hours # => 33
     #
-    def self.hours(host=Socket.gethostname)
+    def self.hours(host = Socket.gethostname)
       minutes(host) / 60
     end
 
@@ -92,7 +92,7 @@ module Sys
     #
     #    Sys::Uptime.minutes # => 1980
     #
-    def self.minutes(host=Socket.gethostname)
+    def self.minutes(host = Socket.gethostname)
       seconds(host) / 60
     end
 
@@ -103,7 +103,7 @@ module Sys
     #
     #    Sys::Uptime.seconds # => 118800
     #
-    def self.seconds(host=Socket.gethostname)
+    def self.seconds(host = Socket.gethostname)
       get_seconds(host)
     end
 
