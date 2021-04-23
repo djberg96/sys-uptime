@@ -26,8 +26,8 @@ module Sys
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         query = "select LastBootupTime from Win32_OperatingSystem"
         results = wmi.ExecQuery(query)
