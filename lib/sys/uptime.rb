@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if File::ALT_SEPARATOR
   require_relative 'windows/sys/uptime'
 else

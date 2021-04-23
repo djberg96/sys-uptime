@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'ffi'
 
 # The Sys module serves as a namespace only.
