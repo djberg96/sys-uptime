@@ -5,7 +5,6 @@ require 'time'
 
 # The Sys module serves as a namespace only.
 module Sys
-
   # The Uptime class encapsulates various bits of information regarding your
   # system's uptime, including boot time.
   class Uptime
