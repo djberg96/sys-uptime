@@ -188,11 +188,11 @@ module Sys
     def self.uptime
       secs  = seconds
       days  = secs / 86400
-      secs  -= days * 86400
+      secs -= days * 86400
       hours = secs / 3600
-      secs  -= hours * 3600
-      mins  = secs / 60
-      secs  -= mins * 60
+      secs -= hours * 3600
+      mins = secs / 60
+      secs -= mins * 60
 
       "#{days}:#{hours}:#{mins}:#{secs}"
     end
