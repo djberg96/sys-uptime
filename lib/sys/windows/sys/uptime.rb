@@ -31,10 +31,10 @@ module Sys
       else
         query = "select LastBootupTime from Win32_OperatingSystem"
         results = wmi.ExecQuery(query)
-        results.each{ |ole|
+        results.each do |ole|
           time_array = parse_ms_date(ole.LastBootupTime)
           return Time.mktime(*time_array)
-        }
+        end
       end
     end
 
