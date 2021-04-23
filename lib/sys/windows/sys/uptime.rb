@@ -30,11 +30,8 @@ module Sys
         raise Error, err
       else
         query = 'select LastBootupTime from Win32_OperatingSystem'
-        results = wmi.ExecQuery(query)
-        results.each do |ole|
-          time_array = parse_ms_date(ole.LastBootupTime)
-          return Time.mktime(*time_array)
-        end
+        result = wmi.ExecQuery(query).itemIndex(0).LastBootupTime
+        Time.parse(result.split('.').first)
       end
     end
 
