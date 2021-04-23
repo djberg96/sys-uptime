@@ -13,8 +13,6 @@ module Sys
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
 
-    private
-
     # Hit this issue on Linux, not sure why
     begin
       find_type(:clock_t)
@@ -44,6 +42,11 @@ module Sys
     TICKS         = 100 # Ticks per second (TODO: use sysconf)
     BOOT_TIME     = 2   # Boot time
 
+    private_constant :CTL_KERN
+    private_constant :KERN_BOOTTIME
+    private_constant :TICKS
+    private_constant :BOOT_TIME
+
     class Tms < FFI::Struct
       layout(
         :tms_utime, :clock_t,
@@ -53,6 +56,8 @@ module Sys
       )
     end
 
+    private_constant :Tms
+
     class Timeval < FFI::Struct
       layout(
         :tv_sec,  :long,
@@ -60,12 +65,16 @@ module Sys
       )
     end
 
+    private_constant :Timeval
+
     class ExitStatus < FFI::Struct
       layout(
         :e_termination, :short,
         :e_exit, :short
       )
     end
+
+    private_constant :ExitStatus
 
     class Utmpx < FFI::Struct
       layout(
@@ -82,7 +91,7 @@ module Sys
       )
     end
 
-    public
+    private_constant :Utmpx
 
     # Returns a Time object indicating the time the system was last booted.
     #
