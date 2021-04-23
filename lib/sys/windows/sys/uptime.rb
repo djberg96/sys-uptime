@@ -114,7 +114,7 @@ module Sys
     #
     def self.parse_ms_date(str)
       return if str.nil?
-      return Time.parse(str.split('.').first)
+      Time.parse(str.split('.').first)
     end
 
     private_class_method :parse_ms_date
@@ -139,7 +139,7 @@ module Sys
     # Returns the number of seconds since boot.
     #
     def self.get_seconds(host)
-      (Time.now - boot_time).to_i
+      (Time.now - boot_time(host)).to_i
     end
 
     private_class_method :get_seconds
