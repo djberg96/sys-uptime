@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'win32ole'
 require 'socket'
 require 'date'
@@ -5,11 +7,9 @@ require 'time'
 
 # The Sys module serves as a namespace only.
 module Sys
-
   # The Uptime class encapsulates various bits of information regarding your
   # system's uptime, including boot time.
   class Uptime
-
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
 
@@ -26,15 +26,12 @@ module Sys
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
-        query = "select LastBootupTime from Win32_OperatingSystem"
-        results = wmi.ExecQuery(query)
-        results.each{ |ole|
-          time_array = parse_ms_date(ole.LastBootupTime)
-          return Time.mktime(*time_array)
-        }
+        query = 'select LastBootupTime from Win32_OperatingSystem'
+        result = wmi.ExecQuery(query).itemIndex(0).LastBootupTime
+        Time.parse(result.split('.').first)
       end
     end
 
@@ -81,7 +78,7 @@ module Sys
     #
     #    Sys::Uptime.hours # => 33
     #
-    def self.hours(host=Socket.gethostname)
+    def self.hours(host = Socket.gethostname)
       minutes(host) / 60
     end
 
@@ -92,7 +89,7 @@ module Sys
     #
     #    Sys::Uptime.minutes # => 1980
     #
-    def self.minutes(host=Socket.gethostname)
+    def self.minutes(host = Socket.gethostname)
       seconds(host) / 60
     end
 
@@ -103,7 +100,7 @@ module Sys
     #
     #    Sys::Uptime.seconds # => 118800
     #
-    def self.seconds(host=Socket.gethostname)
+    def self.seconds(host = Socket.gethostname)
       get_seconds(host)
     end
 
@@ -114,7 +111,7 @@ module Sys
     #
     def self.parse_ms_date(str)
       return if str.nil?
-      return Time.parse(str.split('.').first)
+      Time.parse(str.split('.').first)
     end
 
     private_class_method :parse_ms_date
@@ -139,7 +136,7 @@ module Sys
     # Returns the number of seconds since boot.
     #
     def self.get_seconds(host)
-      (Time.now - boot_time).to_i
+      (Time.now - boot_time(host)).to_i
     end
 
     private_class_method :get_seconds

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if File::ALT_SEPARATOR
   require_relative 'windows/sys/uptime'
 else
@@ -7,6 +9,6 @@ end
 module Sys
   class Uptime
     # The version of the sys-uptime library
-    VERSION = '0.7.5'.freeze
+    VERSION = '0.7.5'
   end
 end

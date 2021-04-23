@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'ffi'
 
 # The Sys module serves as a namespace only.
 module Sys
-
   # The Uptime class encapsulates various bits of information regarding your
   # system's uptime, including boot time.
   class Uptime
@@ -11,8 +12,6 @@ module Sys
 
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
-
-    private
 
     # Hit this issue on Linux, not sure why
     begin
@@ -29,7 +28,7 @@ module Sys
     private_class_method :strerror, :sysconf, :time, :times, :new
 
     begin
-      attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
+      attach_function :sysctl, %i[pointer uint pointer pointer pointer size_t], :int
       private_class_method :sysctl
     rescue FFI::NotFoundError
       attach_function :setutxent, [], :void
@@ -43,6 +42,11 @@ module Sys
     TICKS         = 100 # Ticks per second (TODO: use sysconf)
     BOOT_TIME     = 2   # Boot time
 
+    private_constant :CTL_KERN
+    private_constant :KERN_BOOTTIME
+    private_constant :TICKS
+    private_constant :BOOT_TIME
+
     class Tms < FFI::Struct
       layout(
         :tms_utime, :clock_t,
@@ -52,6 +56,8 @@ module Sys
       )
     end
 
+    private_constant :Tms
+
     class Timeval < FFI::Struct
       layout(
         :tv_sec,  :long,
@@ -59,12 +65,16 @@ module Sys
       )
     end
 
+    private_constant :Timeval
+
     class ExitStatus < FFI::Struct
       layout(
         :e_termination, :short,
         :e_exit, :short
       )
     end
+
+    private_constant :ExitStatus
 
     class Utmpx < FFI::Struct
       layout(
@@ -81,7 +91,7 @@ module Sys
       )
     end
 
-    public
+    private_constant :Utmpx
 
     # Returns a Time object indicating the time the system was last booted.
     #
@@ -91,14 +101,14 @@ module Sys
     #
     def self.boot_time
       if RbConfig::CONFIG['host_os'] =~ /linux/i
-        Time.now - self.seconds
+        Time.now - seconds
       elsif respond_to?(:sysctl, true)
         tv = Timeval.new
         mib  = FFI::MemoryPointer.new(:int, 2).write_array_of_int([CTL_KERN, KERN_BOOTTIME])
         size = FFI::MemoryPointer.new(:long, 1).write_int(tv.size)
 
         if sysctl(mib, 2, tv, size, nil, 0) != 0
-          raise SystemCallError, 'sysctl() - ' + strerror(FFI.errno)
+          raise SystemCallError, "sysctl function failed: #{strerror(FFI.errno)}"
         end
 
         Time.at(tv[:tv_sec], tv[:tv_usec])
@@ -137,7 +147,7 @@ module Sys
         size = FFI::MemoryPointer.new(:long, 1).write_int(tv.size)
 
         if sysctl(mib, 2, tv, size, nil, 0) != 0
-          raise SystemCallError, 'sysctl() - ' + strerror(FFI.errno)
+          raise SystemCallError, "sysctl function failed: #{strerror(FFI.errno)}"
         end
 
         time(nil) - tv[:tv_sec]
@@ -187,11 +197,11 @@ module Sys
     def self.uptime
       secs  = seconds
       days  = secs / 86400
-      secs  -= days * 86400
+      secs -= days * 86400
       hours = secs / 3600
-      secs  -= hours * 3600
-      mins  = secs / 60
-      secs  -= mins * 60
+      secs -= hours * 3600
+      mins = secs / 60
+      secs -= mins * 60
 
       "#{days}:#{hours}:#{mins}:#{secs}"
     end
