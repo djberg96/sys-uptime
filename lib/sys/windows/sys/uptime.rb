@@ -10,7 +10,6 @@ module Sys
   # The Uptime class encapsulates various bits of information regarding your
   # system's uptime, including boot time.
   class Uptime
-
     # Error typically raised in one of the Uptime methods should fail.
     class Error < StandardError; end
 
