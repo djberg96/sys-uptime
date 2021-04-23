@@ -99,7 +99,7 @@ module Sys
         size = FFI::MemoryPointer.new(:long, 1).write_int(tv.size)
 
         if sysctl(mib, 2, tv, size, nil, 0) != 0
-          raise SystemCallError, 'sysctl() - ' + strerror(FFI.errno)
+          raise SystemCallError, "sysctl function failed: #{strerror(FFI.errno)}"
         end
 
         Time.at(tv[:tv_sec], tv[:tv_usec])
@@ -138,7 +138,7 @@ module Sys
         size = FFI::MemoryPointer.new(:long, 1).write_int(tv.size)
 
         if sysctl(mib, 2, tv, size, nil, 0) != 0
-          raise SystemCallError, 'sysctl() - ' + strerror(FFI.errno)
+          raise SystemCallError, "sysctl function failed: #{strerror(FFI.errno)}"
         end
 
         time(nil) - tv[:tv_sec]
