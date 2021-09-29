@@ -10,5 +10,7 @@ module Sys
   class Uptime
     # The version of the sys-uptime library
     VERSION = '0.7.5'
+
+    private_class_method :new
   end
 end

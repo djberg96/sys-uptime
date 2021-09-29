@@ -14,6 +14,10 @@ describe Sys::Uptime do
     expect(Sys::Uptime::VERSION.frozen?).to be(true)
   end
 
+  example "constructor is private" do
+    expect{ described_class.new }.to raise_error(NoMethodError)
+  end
+
   example "seconds method basic functionality" do
     expect(Sys::Uptime).to respond_to(:seconds)
     expect{ Sys::Uptime.seconds }.not_to raise_error
