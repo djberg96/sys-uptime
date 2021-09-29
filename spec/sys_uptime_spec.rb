@@ -9,6 +9,8 @@ require 'rspec'
 require 'socket'
 
 describe Sys::Uptime do
+  let(:plausible_seconds) { ENV['CI'] ? 30 : 120 }
+
   example "version is set to expected value" do
     expect(Sys::Uptime::VERSION).to eql('0.7.5')
     expect(Sys::Uptime::VERSION.frozen?).to be(true)
@@ -25,7 +27,7 @@ describe Sys::Uptime do
 
   example "seconds method returns a plausible value" do
     expect(Sys::Uptime.seconds).to be_kind_of(Integer)
-    expect(Sys::Uptime.seconds).to be > 60
+    expect(Sys::Uptime.seconds).to be > plausible_seconds
   end
 
   example "minutes method basic functionality" do
