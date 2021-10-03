@@ -137,7 +137,7 @@ module Sys
     def self.seconds
       if RbConfig::CONFIG['host_os'] =~ /linux/i
         begin
-          IO.read('/proc/uptime').split.first.to_i
+          File.read('/proc/uptime').split.first.to_i
         rescue Exception => err
           raise Error, err
         end
