@@ -13,6 +13,8 @@ AllCops:
   NewCops: enable
 Lint/AssignmentInCondition:
   Enabled: false
+Style/HashSyntax:
+  Enabled: false
 Style/MethodCallWithoutArgsParentheses:
   Enabled: false
 Style/NumericLiterals:
