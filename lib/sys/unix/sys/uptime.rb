@@ -136,11 +136,13 @@ module Sys
     #
     def self.seconds
       if RbConfig::CONFIG['host_os'] =~ /linux/i
+        # rubocop:disable Lint/RescueException
         begin
           File.read('/proc/uptime').split.first.to_i
         rescue Exception => err
           raise Error, err
         end
+        # rubocop:enable Lint/RescueException
       elsif respond_to?(:sysctl, true)
         tv   = Timeval.new
         mib  = FFI::MemoryPointer.new(:int, 2).write_array_of_int([CTL_KERN, KERN_BOOTTIME])
