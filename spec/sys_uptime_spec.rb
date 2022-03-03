@@ -107,7 +107,7 @@ describe Sys::Uptime do
   end
 
   example 'Ensure that ffi functions are private' do
-    methods = described_class.methods(false).map{ |e| e.to_s }
+    methods = described_class.methods(false).map(&:to_s)
     expect(methods).not_to include('time', 'times')
   end
 end
