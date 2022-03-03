@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #####################################################################
 # sys_uptime_spec.rb
 #
@@ -11,103 +13,103 @@ require 'socket'
 describe Sys::Uptime do
   let(:plausible_seconds) { ENV['CI'] ? 30 : 120 }
 
-  example "version is set to expected value" do
+  example 'version is set to expected value' do
     expect(Sys::Uptime::VERSION).to eql('0.7.5')
     expect(Sys::Uptime::VERSION.frozen?).to be(true)
   end
 
-  example "constructor is private" do
+  example 'constructor is private' do
     expect{ described_class.new }.to raise_error(NoMethodError)
   end
 
-  example "seconds method basic functionality" do
-    expect(Sys::Uptime).to respond_to(:seconds)
-    expect{ Sys::Uptime.seconds }.not_to raise_error
+  example 'seconds method basic functionality' do
+    expect(described_class).to respond_to(:seconds)
+    expect{ described_class.seconds }.not_to raise_error
   end
 
-  example "seconds method returns a plausible value" do
-    expect(Sys::Uptime.seconds).to be_kind_of(Integer)
-    expect(Sys::Uptime.seconds).to be > plausible_seconds
+  example 'seconds method returns a plausible value' do
+    expect(described_class.seconds).to be_kind_of(Integer)
+    expect(described_class.seconds).to be > plausible_seconds
   end
 
-  example "minutes method basic functionality" do
-    expect(Sys::Uptime).to respond_to(:minutes)
-    expect{ Sys::Uptime.minutes }.not_to raise_error
+  example 'minutes method basic functionality' do
+    expect(described_class).to respond_to(:minutes)
+    expect{ described_class.minutes }.not_to raise_error
   end
 
-  example "minutes method returns a plausible value" do
-    expect(Sys::Uptime.minutes).to be_kind_of(Integer)
+  example 'minutes method returns a plausible value' do
+    expect(described_class.minutes).to be_kind_of(Integer)
     if ENV['CI']
-      expect(Sys::Uptime.minutes).to be >= 0
+      expect(described_class.minutes).to be >= 0
     else
-      expect(Sys::Uptime.minutes).to be > 0
+      expect(described_class.minutes).to be > 0
     end
   end
 
-  example "hours method basic functionality" do
-    expect(Sys::Uptime).to respond_to(:hours)
-    expect{ Sys::Uptime.hours }.not_to raise_error
+  example 'hours method basic functionality' do
+    expect(described_class).to respond_to(:hours)
+    expect{ described_class.hours }.not_to raise_error
   end
 
-  example "hours method returns a plausible value" do
-    expect(Sys::Uptime.hours).to be_kind_of(Integer)
-    expect(Sys::Uptime.hours).to be >= 0
+  example 'hours method returns a plausible value' do
+    expect(described_class.hours).to be_kind_of(Integer)
+    expect(described_class.hours).to be >= 0
   end
 
-  example "days method basic functionality" do
-    expect(Sys::Uptime).to respond_to(:days)
-    expect{ Sys::Uptime.days }.not_to raise_error
+  example 'days method basic functionality' do
+    expect(described_class).to respond_to(:days)
+    expect{ described_class.days }.not_to raise_error
   end
 
-  example "days method returns a plausible value" do
-    expect(Sys::Uptime.days).to be_kind_of(Integer)
-    expect(Sys::Uptime.days).to be >= 0
+  example 'days method returns a plausible value' do
+    expect(described_class.days).to be_kind_of(Integer)
+    expect(described_class.days).to be >= 0
   end
 
-  example "uptime method basic functionality" do
-    expect(Sys::Uptime).to respond_to(:uptime)
-    expect{ Sys::Uptime.uptime }.not_to raise_error
+  example 'uptime method basic functionality' do
+    expect(described_class).to respond_to(:uptime)
+    expect{ described_class.uptime }.not_to raise_error
   end
 
-  example "uptime method returns a non-empty string" do
-    expect(Sys::Uptime.uptime).to be_kind_of(String)
-    expect(Sys::Uptime.uptime.empty?).to be(false)
+  example 'uptime method returns a non-empty string' do
+    expect(described_class.uptime).to be_kind_of(String)
+    expect(described_class.uptime.empty?).to be(false)
   end
 
-  example "uptime method does not accept any arguments", :unless => File::ALT_SEPARATOR do
-    expect{ Sys::Uptime.uptime(1) }.to raise_error(ArgumentError)
+  example 'uptime method does not accept any arguments', :unless => File::ALT_SEPARATOR do
+    expect{ described_class.uptime(1) }.to raise_error(ArgumentError)
   end
 
-  example "uptime accepts a host name on Windows", :if => File::ALT_SEPARATOR do
-    expect{ Sys::Uptime.uptime(Socket.gethostname) }.not_to raise_error
+  example 'uptime accepts a host name on Windows', :if => File::ALT_SEPARATOR do
+    expect{ described_class.uptime(Socket.gethostname) }.not_to raise_error
   end
 
-  example "dhms method basic functionality" do
-    expect(Sys::Uptime).to respond_to(:dhms)
-    expect{ Sys::Uptime.dhms }.not_to raise_error
-    expect(Sys::Uptime.dhms).to be_kind_of(Array)
+  example 'dhms method basic functionality' do
+    expect(described_class).to respond_to(:dhms)
+    expect{ described_class.dhms }.not_to raise_error
+    expect(described_class.dhms).to be_kind_of(Array)
   end
 
-  example "dhms method returns an array of four elements" do
-    expect(Sys::Uptime.dhms).not_to be_empty
-    expect(Sys::Uptime.dhms.length).to eql(4)
+  example 'dhms method returns an array of four elements' do
+    expect(described_class.dhms).not_to be_empty
+    expect(described_class.dhms.length).to eq(4)
   end
 
-  example "boot_time method basic functionality" do
-    expect(Sys::Uptime).to respond_to(:boot_time)
-    expect{ Sys::Uptime.boot_time }.not_to raise_error
+  example 'boot_time method basic functionality' do
+    expect(described_class).to respond_to(:boot_time)
+    expect{ described_class.boot_time }.not_to raise_error
   end
 
-  example "boot_time method returns a Time object" do
-    expect(Sys::Uptime.boot_time).to be_kind_of(Time)
+  example 'boot_time method returns a Time object' do
+    expect(described_class.boot_time).to be_kind_of(Time)
   end
 
-  example "Uptime class cannot be instantiated" do
-    expect{ Sys::Uptime.new }.to raise_error(StandardError)
+  example 'Uptime class cannot be instantiated' do
+    expect{ described_class.new }.to raise_error(StandardError)
   end
 
-  example "Ensure that ffi functions are private" do
-    methods = Sys::Uptime.methods(false).map{ |e| e.to_s }
+  example 'Ensure that ffi functions are private' do
+    methods = described_class.methods(false).map(&:to_s)
     expect(methods).not_to include('time', 'times')
   end
 end
