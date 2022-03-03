@@ -90,7 +90,7 @@ describe Sys::Uptime do
 
   example 'dhms method returns an array of four elements' do
     expect(described_class.dhms).not_to be_empty
-    expect(described_class.dhms.length).to eql(4)
+    expect(described_class.dhms.length).to eq(4)
   end
 
   example 'boot_time method basic functionality' do
