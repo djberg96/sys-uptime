@@ -37,13 +37,9 @@ describe Sys::Uptime do
     expect{ described_class.minutes }.not_to raise_error
   end
 
-  example 'minutes method returns a plausible value' do
+  example 'minutes method returns a plausible value', :unless => ENV['CI'] do
     expect(described_class.minutes).to be_kind_of(Integer)
-    if ENV['CI']
-      expect(described_class.minutes).to be >= 0
-    else
-      expect(described_class.minutes).to be > 0
-    end
+    expect(described_class.minutes).to be > 3
   end
 
   example 'hours method basic functionality' do
