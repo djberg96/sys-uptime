@@ -11,6 +11,11 @@ RSpec/InstanceVariable:
 
 AllCops:
   NewCops: enable
+  Exclude:
+    - sys-uptime.gemspec
+    - Gemfile
+    - Rakefile
+    - examples/*.rb
 Lint/AssignmentInCondition:
   Enabled: false
 Style/HashSyntax:
