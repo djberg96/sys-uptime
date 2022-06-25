@@ -24,12 +24,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rubocop-rspec')
 
   spec.metadata = {
-    'homepage_uri'      => 'https://github.com/djberg96/sys-uptime',
-    'bug_tracker_uri'   => 'https://github.com/djberg96/sys-uptime/issues',
-    'changelog_uri'     => 'https://github.com/djberg96/sys-uptime/blob/main/CHANGES.md',
-    'documentation_uri' => 'https://github.com/djberg96/sys-uptime/wiki',
-    'source_code_uri'   => 'https://github.com/djberg96/sys-uptime',
-    'wiki_uri'          => 'https://github.com/djberg96/sys-uptime/wiki'
+    'homepage_uri'          => 'https://github.com/djberg96/sys-uptime',
+    'bug_tracker_uri'       => 'https://github.com/djberg96/sys-uptime/issues',
+    'changelog_uri'         => 'https://github.com/djberg96/sys-uptime/blob/main/CHANGES.md',
+    'documentation_uri'     => 'https://github.com/djberg96/sys-uptime/wiki',
+    'source_code_uri'       => 'https://github.com/djberg96/sys-uptime',
+    'wiki_uri'              => 'https://github.com/djberg96/sys-uptime/wiki',
+    'rubygems_mfa_required' => 'true'
   }
 
   spec.description = <<-EOF
