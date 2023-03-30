@@ -28,7 +28,7 @@ describe Sys::Uptime do
   end
 
   example 'seconds method returns a plausible value' do
-    expect(described_class.seconds).to be_kind_of(Integer)
+    expect(described_class.seconds).to be_a(Integer)
     expect(described_class.seconds).to be > plausible_seconds
   end
 
@@ -37,8 +37,8 @@ describe Sys::Uptime do
     expect{ described_class.minutes }.not_to raise_error
   end
 
-  example 'minutes method returns a plausible value', :unless => ENV['CI'] do
-    expect(described_class.minutes).to be_kind_of(Integer)
+  example 'minutes method returns a plausible value', :unless => ENV.fetch('CI', nil) do
+    expect(described_class.minutes).to be_a(Integer)
     expect(described_class.minutes).to be > 3
   end
 
@@ -48,7 +48,7 @@ describe Sys::Uptime do
   end
 
   example 'hours method returns a plausible value' do
-    expect(described_class.hours).to be_kind_of(Integer)
+    expect(described_class.hours).to be_a(Integer)
     expect(described_class.hours).to be >= 0
   end
 
@@ -58,7 +58,7 @@ describe Sys::Uptime do
   end
 
   example 'days method returns a plausible value' do
-    expect(described_class.days).to be_kind_of(Integer)
+    expect(described_class.days).to be_a(Integer)
     expect(described_class.days).to be >= 0
   end
 
@@ -68,7 +68,7 @@ describe Sys::Uptime do
   end
 
   example 'uptime method returns a non-empty string' do
-    expect(described_class.uptime).to be_kind_of(String)
+    expect(described_class.uptime).to be_a(String)
     expect(described_class.uptime.empty?).to be(false)
   end
 
@@ -83,7 +83,7 @@ describe Sys::Uptime do
   example 'dhms method basic functionality' do
     expect(described_class).to respond_to(:dhms)
     expect{ described_class.dhms }.not_to raise_error
-    expect(described_class.dhms).to be_kind_of(Array)
+    expect(described_class.dhms).to be_a(Array)
   end
 
   example 'dhms method returns an array of four elements' do
@@ -97,7 +97,7 @@ describe Sys::Uptime do
   end
 
   example 'boot_time method returns a Time object' do
-    expect(described_class.boot_time).to be_kind_of(Time)
+    expect(described_class.boot_time).to be_a(Time)
   end
 
   example 'Uptime class cannot be instantiated' do
