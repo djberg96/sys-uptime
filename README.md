@@ -30,7 +30,7 @@ p Uptime.boot_time
 ```
 
 ## Notes
-On MS Windows the +Uptime.uptime+ and +Uptime.boot_time+ methods optionally
+On MS Windows the `Uptime.uptime` and `Uptime.boot_time` methods optionally
 takes a host name as a single argument. The default is localhost.
 
 The current time, users and load average are not included in this library
