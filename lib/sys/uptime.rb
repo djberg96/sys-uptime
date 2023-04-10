@@ -11,7 +11,7 @@ module Sys
   # The Uptime class serves as a base singleton class to hang uptime related methods on.
   class Uptime
     # The version of the sys-uptime library
-    VERSION = '0.7.5'
+    VERSION = '0.7.6'
 
     private_class_method :new
   end

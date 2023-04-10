@@ -1,3 +1,10 @@
+## 0.7.6 - 9-Apr-2023
+* Constructor is now officially private, as are several constants that were
+  never meant to be public.
+* Lots of rubocop suggested updates.
+* Minor refactoring for Windows.
+* Minor updates, including Rakefile and gemspec metadata.
+
 ## 0.7.5 - 29-Oct-2020
 * Switched docs to markdown format.
 * Added a Gemfile.

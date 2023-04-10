@@ -10,11 +10,11 @@ require 'sys/uptime'
 require 'rspec'
 require 'socket'
 
-describe Sys::Uptime do
+RSpec.describe Sys::Uptime do
   let(:plausible_seconds) { ENV['CI'] ? 30 : 120 }
 
   example 'version is set to expected value' do
-    expect(Sys::Uptime::VERSION).to eql('0.7.5')
+    expect(Sys::Uptime::VERSION).to eql('0.7.6')
     expect(Sys::Uptime::VERSION.frozen?).to be(true)
   end
 
