@@ -39,4 +39,17 @@ Gem::Specification.new do |spec|
     information. You can retrieve data in seconds, minutes, days, hours,
     or all of the above.
   EOF
+
+  spec.post_install_message = <<-EOF
+
+  ###############################################################################
+  # Amendment VII of the US Constitution
+  #
+  # In Suits at common law, where the value in controversy shall exceed twenty
+  # dollars, the right of trial by jury shall be preserved, and no fact tried
+  # by a jury, shall be otherwise re-examined in any Court of the United States,
+  # than according to the rules of the common law. 
+  ###############################################################################
+
+  EOF
 end
