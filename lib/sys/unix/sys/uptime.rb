@@ -47,6 +47,7 @@ module Sys
     private_constant :TICKS
     private_constant :BOOT_TIME
 
+    # Private wrapper class for struct tms
     class Tms < FFI::Struct
       layout(
         :tms_utime, :clock_t,
@@ -58,6 +59,7 @@ module Sys
 
     private_constant :Tms
 
+    # Private wrapper class for struct timeval
     class Timeval < FFI::Struct
       layout(
         :tv_sec,  :long,
@@ -67,6 +69,7 @@ module Sys
 
     private_constant :Timeval
 
+    # Private wrapper class for struct exit_status
     class ExitStatus < FFI::Struct
       layout(
         :e_termination, :short,
@@ -76,6 +79,7 @@ module Sys
 
     private_constant :ExitStatus
 
+    # Private wrapper class for struct utmpx
     class Utmpx < FFI::Struct
       layout(
         :ut_user, [:char, 32],
