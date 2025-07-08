@@ -39,13 +39,13 @@ module Sys
 
     CTL_KERN      = 1   # Kernel
     KERN_BOOTTIME = 21  # Time kernel was booted
-    TICKS         = 100 # Ticks per second (TODO: use sysconf)
     BOOT_TIME     = 2   # Boot time
+    SC_CLK_TCK    = 2   # Sysconf parameter for clock ticks per second
 
     private_constant :CTL_KERN
     private_constant :KERN_BOOTTIME
-    private_constant :TICKS
     private_constant :BOOT_TIME
+    private_constant :SC_CLK_TCK
 
     # Private wrapper class for struct tms
     class Tms < FFI::Struct
@@ -96,6 +96,17 @@ module Sys
     end
 
     private_constant :Utmpx
+
+    # Get ticks per second using sysconf, fallback to 100 if not available
+    def self.ticks_per_second
+      @ticks_per_second ||= begin
+        sysconf(SC_CLK_TCK)
+      rescue
+        100
+      end
+    end
+
+    private_class_method :ticks_per_second
 
     # Returns a Time object indicating the time the system was last booted.
     #
@@ -159,7 +170,7 @@ module Sys
         time(nil) - tv[:tv_sec]
       else
         tms = Tms.new
-        times(tms) / TICKS
+        times(tms) / ticks_per_second
       end
     end
 
