@@ -51,7 +51,7 @@ website at https://github.com/djberg96/sys-uptime.
 Apache-2.0
     
 ## Copyright
-Copyright 2002-2023, Daniel J. Berger
+Copyright 2002-2025, Daniel J. Berger
 
 All Rights Reserved. This module is free software. It may be used,
 redistributed and/or modified under the same terms as Ruby itself.

@@ -1,3 +1,6 @@
+## 0.8.0 - 7-Jul-2025
+* Use sysconf instead of hard coded value for ticks on Unixy platforms.
+
 ## 0.7.6 - 9-Apr-2023
 * Constructor is now officially private, as are several constants that were
   never meant to be public.
