@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
 
   if File::ALT_SEPARATOR
     spec.platform = Gem::Platform.new(['universal', 'mingw32'])
+    spec.add_dependency('win32ole')
   else
     spec.add_dependency('ffi', '~> 1.1')
   end
